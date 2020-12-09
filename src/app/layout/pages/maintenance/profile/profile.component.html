@@ -1,0 +1,269 @@
+<div class="mt-2" nz-row nzGutter="8">
+  <div nz-col nzSpan="24">
+    <nz-card style="width: 100%">
+      <h2>Meu Perfil</h2>
+      <form nz-form [formGroup]="formUser">
+        <div nz-row [nzGutter]="20">
+          <div class="mt-2" nz-col nzSpan="24" nzLg="16" nzOrder="1">
+            <div nz-row [nzGutter]="24">
+              <div nz-col nzSpan="24" nzLg="12">
+                <nz-form-item>
+                  <nz-form-label nzRequired="true" [nzSpan]="24"
+                    >Nome Completo</nz-form-label
+                  >
+                  <nz-form-control nzRequired="true" nzErrorTip="Obrigatório">
+                    <input
+                      type="text"
+                      nz-input
+                      formControlName="full_name"
+                      placeholder="nome"
+                    />
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div nz-col nzSpan="24" nzLg="8">
+                <nz-form-item class="mb-1">
+                  <nz-form-label [nzSpan]="24">Email</nz-form-label>
+                  <nz-form-control [nzSpan]="24" nzErrorTip="Obrigatório">
+                    <input nz-input type="email" formControlName="email" />
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+            </div>
+            <div nz-row [nzGutter]="24">
+              <div nz-col nzSpan="24" nzLg="12">
+                <nz-form-item class="mb-1">
+                  <nz-form-label [nzSpan]="24">Telefone</nz-form-label>
+                  <nz-form-control [nzSpan]="24" nzErrorTip="telefone">
+                    <input
+                      mask="(00) 0 0000-0000"
+                      nz-input
+                      formControlName="phoneMovel"
+                      placeholder="..."
+                    />
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div nz-col nzSpan="24" nzLg="8">
+                <nz-form-item class="mb-1">
+                  <nz-form-label nzRequired="true" [nzSpan]="24"
+                    >Perfil</nz-form-label
+                  >
+                  <nz-form-control
+                    [nzSpan]="24"
+                    nzErrorTip="Primeiro nome requerido"
+                  >
+                    <nz-select style="width: 100%" formControlName="role">
+                      <nz-option
+                        [nzValue]="'USER'"
+                        nzLabel="Assinante"
+                      ></nz-option>
+                      <nz-option
+                        [nzValue]="'AUX'"
+                        nzLabel="Atendente"
+                      ></nz-option>
+                      <nz-option [nzValue]="'ROOT'" nzLabel="Root"></nz-option>
+                    </nz-select>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+            </div>
+          </div>
+          <div nz-col nzSpan="24" nzOrder="1" nzLg="6"></div>
+        </div>
+      </form>
+      <form nz-form [formGroup]="formSubscriber">
+        <div class="mt-2" nz-col nzSpan="24" nzLg="24">
+          <h2>Escritorio</h2>
+          <hr />
+        </div>
+        <div nz-row [nzGutter]="20">
+          <div class="mt-2" nz-col nzSpan="24" nzLg="18">
+            <div nz-row [nzGutter]="24">
+
+              <div class="mt-2" nz-col nzSpan="24" nzLg="12">
+                <nz-form-item>
+                  <nz-form-label [nzSpan]="24">Nome Fantazia</nz-form-label>
+                  <nz-form-control nzRequired="true">
+                    <input
+                      type="text"
+                      nz-input
+                      formControlName="fantasy_name"
+                      placeholder="nome"
+                    />
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+            </div>
+            <div nz-row [nzGutter]="24">
+              <div nz-col nzSpan="24" nzLg="12">
+                <nz-form-item class="mb-1">
+                  <nz-form-label [nzSpan]="24">Razão Social</nz-form-label>
+                  <nz-form-control [nzSpan]="24">
+                    <input
+                      nz-input
+                      formControlName="razao_social"
+                      placeholder="..."
+                    />
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div nz-col nzSpan="24" nzLg="12">
+                <nz-form-item class="mb-1">
+                  <nz-form-label [nzSpan]="24">CNPJ</nz-form-label>
+                  <nz-form-control [nzSpan]="24" nzErrorTip="CNPJ Inválido">
+                    <input
+                      mask="CPF_CNPJ"
+                      nz-input
+                      formControlName="document"
+                      placeholder="..."
+                    />
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div nz-col nzSpan="24" nzLg="12">
+                <nz-form-item class="mb-1">
+                  <nz-form-label [nzSpan]="24"
+                    >Inscrição Municipal</nz-form-label
+                  >
+                  <nz-form-control [nzSpan]="24">
+                    <input
+                      nz-input
+                      formControlName="municipality_registration"
+                      placeholder="..."
+                    />
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div nz-col nzSpan="24" nzLg="12">
+                <nz-form-item class="mb-1">
+                  <nz-form-label [nzSpan]="24"
+                    >Inscrição Estadual</nz-form-label
+                  >
+                  <nz-form-control [nzSpan]="24">
+                    <input
+                      nz-input
+                      formControlName="state_subscription"
+                      placeholder="..."
+                    />
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+
+              <div nz-col nzSpan="24" nzLg="8">
+                <nz-form-item class="mb-1">
+                  <nz-form-label [nzSpan]="24">Celular</nz-form-label>
+                  <nz-form-control [nzSpan]="24" nzErrorTip="Numero celular inválido">
+                    <input
+                      nz-input
+                      formControlName="cellphone"
+                      mask="(00) 0 0000-0000"
+                      placeholder="..."
+                    />
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div nz-col nzSpan="24" nzLg="8">
+                <nz-form-item class="mb-1">
+                  <nz-form-label [nzSpan]="24">Telefone</nz-form-label>
+                  <nz-form-control [nzSpan]="24" nzErrorTip="Numero telefonico inválido">
+                    <input
+                      nz-input
+                      formControlName="telephone"
+                      mask="(00) 0000-0000"
+                      placeholder="..."
+                    />
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div nz-col nzSpan="24" nzLg="24"></div>
+              <div nz-col nzSpan="24" nzLg="12">
+                <nz-form-item class="mb-1">
+                  <nz-form-label [nzSpan]="24">Endereço</nz-form-label>
+                  <nz-form-control [nzSpan]="24" nzErrorTip="telefone">
+                    <input
+                      nz-input
+                      formControlName="address"
+                      placeholder="..."
+                    />
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div nz-col nzSpan="24" nzLg="6">
+                <nz-form-item class="mb-1">
+                  <nz-form-label [nzSpan]="24">Bairro</nz-form-label>
+                  <nz-form-control [nzSpan]="24" nzErrorTip="telefone">
+                    <input
+                      nz-input
+                      formControlName="district"
+                      placeholder="..."
+                    />
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div nz-col nzSpan="24" nzLg="6">
+                <nz-form-item class="mb-1">
+                  <nz-form-label [nzSpan]="24">Cidade</nz-form-label>
+                  <nz-form-control [nzSpan]="24" nzErrorTip="telefone">
+                    <input nz-input formControlName="city" placeholder="..." />
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div nz-col nzSpan="24" nzLg="4">
+                <nz-form-item class="mb-1">
+                  <nz-form-label [nzSpan]="24">Nº</nz-form-label>
+                  <nz-form-control [nzSpan]="24" nzErrorTip="telefone">
+                    <input
+                      nz-input
+                      formControlName="number"
+                      placeholder="..."
+                    />
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div nz-col nzSpan="24" nzLg="6">
+                <nz-form-item class="mb-1">
+                  <nz-form-label [nzSpan]="24">Estado</nz-form-label>
+                  <nz-form-control [nzSpan]="24" nzErrorTip="telefone">
+                    <input nz-input formControlName="state" placeholder="..." />
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+            </div>
+          </div>
+          <div nz-col nzSpan="24" nzLg="6">
+            <nz-spin [nzSpinning]="isLoadAvatar">
+              <img
+                accept=".png, .jpg, .jpeg"
+                style="max-height: 200px; width: 100%; border-radius: 8px"
+                src="{{ urlApi }}{{ formUser.value.avatar }}"
+              />
+              <label for="avatar" class="btn-change">MUDAR LOGO</label>
+              <input
+                id="avatar"
+                (change)="handleChangeAvatar($event)"
+                type="file"
+              />
+            </nz-spin>
+          </div>
+        </div>
+      </form>
+      <div nz-row [nzGutter]="8" nzJustify="center">
+        <div nz-col nzSpan="24" nzLg="6" nzSm="24">
+          <button
+            class="mt-2"
+            [nzLoading]="updateUserLoaded"
+            (click)="handleUpdate()"
+            nz-button
+            nzBlock="true"
+            nzShape="round"
+            nzType="primary"
+            nzSize="large"
+          >
+            SALVA
+          </button>
+        </div>
+      </div>
+    </nz-card>
+  </div>
+</div>

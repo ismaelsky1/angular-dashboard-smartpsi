@@ -1,0 +1,156 @@
+<nz-layout class="app-layout">
+  <nz-sider class="menu-sidebar" nzCollapsible nzWidth="256px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
+    [nzTrigger]="null">
+    <div class="sidebar-logo">
+      <img src="assets/images/logo-icon.png" alt="logo">
+      <h1>SmartPsi</h1>
+    </div>
+    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      <li class="btn_primary" nzSelected="true" routerLink="/dashboard" nzMatchRouter nz-menu-item nzIcon="dashboard">
+        <i nz-icon nzType="bar-chart" nzTheme="outline"></i>
+        <span>Painel</span>
+      </li>
+      <li nz-submenu nzTitle="Atendimento" nzIcon="user">
+        <ul>
+          <li routerLink="/appointment" nz-menu-item nzMatchRouter>
+            <i nz-icon nzType="calendar" nzTheme="outline"></i>
+            <a>Agenda</a>
+          </li>
+          <li routerLink="/enchiridion" nz-menu-item nzMatchRouter>
+            <i nz-icon nzType="audit" nzTheme="outline"></i>
+            <a>Prontuarios</a>
+          </li>
+          <!-- <li routerLink="/notification" nz-menu-item nzMatchRouter>
+            <i nz-icon nzType="notification" nzTheme="outline"></i>
+            <a>Notificações</a>
+          </li> -->
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="Cadastro" nzIcon="save">
+        <ul>
+          <!-- <li routerLink="/quiz" nz-menu-item nzMatchRouter>
+            <i nz-icon nzType="team" nzTheme="outline"></i>
+            <a>Questionário</a>
+          </li> -->
+          <li routerLink="/peoples" nz-menu-item nzMatchRouter>
+            <i nz-icon nzType="team" nzTheme="outline"></i>
+            <a>Paciente</a>
+          </li>
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="Gestão" nzIcon="setting">
+        <ul>
+          <li *ngIf="this.userSession?.role == 'ROOT'" routerLink="/module" nz-menu-item nzMatchRouter>
+            <i nz-icon nzType="border" nzTheme="outline"></i>
+            <a>Modulo</a>
+          </li>
+          <li *ngIf="this.userSession?.role == 'ROOT'" routerLink="/profiles" nz-menu-item nzMatchRouter>
+            <i nz-icon nzType="user" nzTheme="outline"></i>
+            <a>Perfis</a>
+          </li>
+          <li *ngIf="this.userSession?.role == 'ROOT'" routerLink="/sub-module" nz-menu-item nzMatchRouter>
+            <i nz-icon nzType="block" nzTheme="outline"></i>
+            <a>Submodulo</a>
+          </li>
+          <li *ngIf="this.userSession?.role == 'ROOT'" routerLink="/user-access" nz-menu-item nzMatchRouter>
+            <i nz-icon nzType="safety" nzTheme="outline"></i>
+            <a>Acesso dos usuários</a>
+          </li>
+          <li *ngIf="this.userSession?.role == 'ROOT'" routerLink="/type-access" nz-menu-item nzMatchRouter>
+            <i nz-icon nzType="safety" nzTheme="outline"></i>
+            <a>Tipo de acesso</a>
+          </li>
+          <li *ngIf="this.userSession?.role == 'ROOT'" routerLink="/users" nz-menu-item nzMatchRouter>
+            <i nz-icon nzType="user" nzTheme="outline"></i>
+            <a>usuários</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header>
+      <div class="app-header">
+        <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+          <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
+        </span>
+        <span style="float: right;margin: 0px 20px;cursor: pointer" nz-dropdown [nzDropdownMenu]="menu1">
+          <strong style="padding: 0 10px">{{userToken?.name}}</strong>
+          <nz-avatar [nzSize]="44"  nzSrc="{{urlApi}}{{userSession?.avatar}}"></nz-avatar>
+        </span>
+        <!-- <span style="float: right;margin: 0px 0px;cursor: pointer" nz-dropdown [nzDropdownMenu]="notification">
+          <nz-avatar [nzSize]="44" nzIcon="bell"></nz-avatar>
+        </span> -->
+        <nz-dropdown-menu #menu1="nzDropdownMenu">
+          <ul nz-menu>
+            <li nz-menu-item [routerLink]="['/profile']">
+              <i nz-icon nzType="user"></i> Perfil
+            </li>
+            <li nz-menu-item (click)="openModalPassword()">
+              <i nz-icon nzType="lock"></i> Alterar senha
+            </li>
+            <li nz-menu-item>
+              <a (click)="logout()">
+                <i nz-icon nzType="logout"></i> Encerrar sessão
+              </a>
+            </li>
+          </ul>
+        </nz-dropdown-menu>
+        <nz-dropdown-menu #notification="nzDropdownMenu">
+          <ul id="drop-notif" nzTheme="dark" nz-menu>
+            <li nz-menu-item (click)="openModalPassword()">
+              Notificação sadsadasdsadasdasdasdasdsad1 <i nz-icon nzType="bell"></i>
+            </li>
+            <li nz-menu-item>
+              Notificação 2 <i nz-icon nzType="bell"></i>
+            </li>
+          </ul>
+        </nz-dropdown-menu>
+
+
+      </div>
+    </nz-header>
+    <nz-content>
+      <div class="inner-content">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+    <nz-footer>SMARTPSI ©2020. Todos os direitos reservados.</nz-footer>
+  </nz-layout>
+</nz-layout>
+
+<nz-modal nzWidth="25%" [(nzVisible)]="modalPassword.isVisibled" [nzTitle]="'Alterar senha'"
+  (nzOnCancel)="closeModalPassword()">
+  <form nz-form [formGroup]="formModalPassword">
+    <div nz-row [nzGutter]="5">
+      <div nz-col [nzSpan]="24">
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Informe a logomarca">
+            <nz-form-label>Senha Atual</nz-form-label>
+            <input nz-input type="password" formControlName="current_password">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="24">
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Informe a cor de fundo">
+            <nz-form-label>Nova Senha</nz-form-label>
+            <input nz-input type="password" formControlName="new_password">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="24">
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Informe a cor de fundo">
+            <nz-form-label>Repita nova senha</nz-form-label>
+            <input nz-input type="password" formControlName="confirm_password">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+  </form>
+  <div *nzModalFooter>
+    <button nz-button nzType="default" (click)="closeModalPassword()">Cancelar</button>
+    <button nz-button nzType="primary" (click)="changePassword()" [nzLoading]="modalPassword.loading">Salvar</button>
+  </div>
+</nz-modal>

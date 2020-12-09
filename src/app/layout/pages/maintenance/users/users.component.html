@@ -1,0 +1,134 @@
+<div class="mt-2" nz-row nzGutter="8">
+  <div class="mb-2" nz-col nzSpan="6">
+    <input [(ngModel)]="filters.full_name" nz-input placeholder="usuário" />
+  </div>
+  <div nz-col nzSpan="3">
+    <nz-select style="width: 100% !important;" [(ngModel)]="filters.role">
+      <nz-option nzValue="USER" nzLabel="Assinante">Assinante</nz-option>
+      <nz-option nzValue="AUX" nzLabel="Atendente">Atendente</nz-option>
+      <nz-option *ngIf="userToken.role == 'ROOT'" nzValue="ROOT" nzLabel="Atendente">ROOT</nz-option>
+    </nz-select>
+  </div>
+  <div nz-col nzSpan="3">
+    <nz-select style="width: 100% !important;" [(ngModel)]="filters.active">
+      <nz-option nzValue="true" nzLabel="Ativado"></nz-option>
+      <nz-option nzValue="false" nzLabel="Bloqueado"></nz-option>
+    </nz-select>
+  </div>
+  <div nz-col nzSpan="6">
+    <nz-button-group>
+      <button (click)="index()" nz-button nzType="primary"><i nz-icon nzType="left"></i>Buscar</button>
+      <button (click)="resetFilter()" nz-button nzType="dashed"><i nz-icon nzType="right"></i>Limpar</button>
+    </nz-button-group>
+
+  </div>
+  <div nz-col nzSpan="6">
+    <button (click)="handleOpenModal()" class="f-right" nz-button nzType="primary"> Novo</button>
+  </div>
+
+  <div nz-col nzSpan="24">
+    <nz-table #basicTable [nzData]="collections">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Email</th>
+          <th>Perfil</th>
+          <th>Ativo</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of basicTable.data">
+          <td>{{data.full_name}}</td>
+          <td>{{data.email}}</td>
+          <td>{{data.role}}</td>
+          <td>
+            <nz-switch (click)="changeActive(data)" [(ngModel)]="data.active" [nzLoading]="isActiveSwitch"></nz-switch>
+          </td>
+          <td nzAlign="center">
+            <a nz-button nzType="primary" (click)="handleOpenModal(data)"><i nz-icon nzType="edit" nzTheme="outline"></i>
+              Editar</a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a nz-popconfirm nzPopconfirmTitle="Deseja realmente deletar?" nzPopconfirmPlacement="bottom"
+              (nzOnConfirm)="handleDelete(data.id)" nz-button nzType="primary"><i nz-icon nzType="delete"
+                nzTheme="outline"></i> Delete</a>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>
+
+<nz-modal [(nzVisible)]="modal.isVisible" nzTitle="Usuário" (nzOnCancel)="handleModalCancel()"
+  (nzOnOk)="handleModalOk()" [nzOkLoading]="modal.loading">
+  <form nz-form nzLayout="vertical" [formGroup]="formModal">
+    <nz-form-item>
+      <nz-form-control nzRequired="true" nzErrorTip="Infome o nome">
+        <input type="text" nz-input formControlName="full_name" placeholder="nome" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item class="mb-1">
+      <nz-form-label nzRequired="true" [nzSpan]="24">Email</nz-form-label>
+      <nz-form-control [nzSpan]="24" nzErrorTip="email inválido">
+        <input nz-input nzAutocomplete="false" formControlName="email" placeholder="exemplo@mail.com" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="mb-1">
+      <nz-form-label [nzSpan]="24">Telefone</nz-form-label>
+      <nz-form-control [nzSpan]="24" nzErrorTip="Numero inválido">
+        <input nz-input autocomplete="off" formControlName="phoneMovel" mask='(00) 0 0000-0000' placeholder="(77) 9 9999-9999" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="mb-1">
+      <nz-form-label [nzSpan]="24">Senha</nz-form-label>
+      <nz-form-control [nzSpan]="24" nzErrorTip="Senha nescessária">
+        <input nz-input type="password" formControlName="password" placeholder="******" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item *ngIf="userToken?.role == 'ROOT'" class="mb-1">
+      <nz-form-label [nzSpan]="24">MasterId</nz-form-label>
+      <nz-form-control [nzSpan]="24" nzErrorTip="Código nescessário">
+        <input nz-input formControlName="masterId" placeholder="Hash" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item *ngIf="userToken?.role == 'ROOT'" class="mb-1">
+      <nz-form-label [nzSpan]="24">Avatar</nz-form-label>
+      <nz-form-control [nzSpan]="24" nzErrorTip="Código nescessário">
+        <input nz-input formControlName="avatar" placeholder="Hash" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item *ngIf="userToken?.role == 'ROOT'" class="mb-1">
+      <nz-form-label [nzSpan]="24">Hash</nz-form-label>
+      <nz-form-control [nzSpan]="24" nzErrorTip="Código nescessário">
+        <input nz-input formControlName="hashRecover" placeholder="Hash" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item *ngIf="userToken?.role == 'ROOT'" class="mb-1">
+      <nz-form-label [nzSpan]="24">SubscribersId</nz-form-label>
+      <nz-form-control [nzSpan]="24" nzErrorTip="Código nescessário">
+        <input nz-input formControlName="subscribersId" placeholder="Hash" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item class="mb-1">
+      <nz-form-label nzRequired="true" [nzSpan]="24">Perfil</nz-form-label>
+      <nz-form-control [nzSpan]="24" nzErrorTip="Código nescessário">
+        <nz-select formControlName="role">
+          <nz-option *ngIf="userToken?.role == 'ROOT'" [nzValue]="'ROOT'" nzLabel="Administrador"></nz-option>
+          <nz-option *ngIf="userToken?.role == 'ROOT'" [nzValue]="'USER'" nzLabel="Psicologo"></nz-option>
+          <nz-option [nzValue]="'AUX'" nzLabel="Atendente"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="mb-1">
+      <nz-form-label [nzSpan]="24">Status</nz-form-label>
+      <nz-form-control [nzSpan]="24" nzErrorTip="Código nescessário">
+        <nz-select formControlName="active">
+          <nz-option [nzValue]="true" nzLabel="Ativado"></nz-option>
+          <nz-option [nzValue]="false" nzLabel="Bloqueado"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-modal>

@@ -1,0 +1,89 @@
+<nz-layout>
+  <div nz-row class="bg-login">
+    <div nz-col nzXs="0" nzSm="0" nzMd="14" nzLg="16" nzXl="17"></div>
+    <div class="" nz-col nzXs="24" nzSm="24" nzMd="10" nzLg="8" nzXl="7">
+      <form
+        class="form-login"
+        nz-form
+        [formGroup]="signUp"
+        (ngSubmit)="submitForm()"
+      >
+        <img
+          src="../../../../assets/images/1-01.png"
+          style="margin: 20px auto; display: block;"
+          width="130"
+        />
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Informe o nome da sua empresa!">
+            <nz-input-group nzPrefixIcon="home">
+              <input
+                type="text"
+                nz-input
+                formControlName="fantasy_name"
+                placeholder="Escritorio ou clinica"
+              />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Informe seu nome!">
+            <nz-input-group nzPrefixIcon="user">
+              <input
+                type="text"
+                nz-input
+                formControlName="full_name"
+                placeholder="Seu nome completo"
+              />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Informe seu email!">
+            <nz-input-group nzPrefixIcon="mail">
+              <input
+                type="text"
+                nz-input
+                formControlName="email"
+                placeholder="email"
+              />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <!-- <nz-form-item>
+          <nz-form-control nzErrorTip="Informe sua senha!">
+            <nz-input-group nzPrefixIcon="lock">
+              <input
+                type="password"
+                nz-input
+                formControlName="password"
+                placeholder="Senha"
+              />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item> -->
+        <nz-form-item>
+          <nz-alert
+            nzType="warning"
+            [nzMessage]="alertError"
+            *ngIf="alertError"
+          ></nz-alert>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control>
+            <a href="/recover-password" class="login-form-forgot"
+              >Esqueceu a senha?</a
+            >
+            <button
+              nz-button
+              class="login-form-button"
+              [nzType]="'primary'"
+              nzBlock
+            >
+              Cadastrar
+            </button>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+    </div>
+  </div>
+</nz-layout>

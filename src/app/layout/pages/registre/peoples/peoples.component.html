@@ -1,0 +1,241 @@
+<div class="mt-2" nz-row nzGutter="8">
+  <div class="mb-2" nz-col nzSpan="16">
+    <input [(ngModel)]="filter.name"  nz-input placeholder="usuário" />
+  </div>
+  <div nz-col nzSpan="5">
+    <nz-button-group>
+      <button (click)="index()" nz-button nzType="primary"><i nz-icon nzType="search"></i>Buscar</button>
+      <button (click)="clean()" nz-button nzType="dashed"><i nz-icon nzType="delete"></i>Limpar</button>
+    </nz-button-group>
+
+  </div>
+  <div nz-col nzSpan="3">
+    <button (click)="openModal()" class="f-right" nz-button nzType="primary"> Novo</button>
+  </div>
+
+  <div nz-col nzSpan="24">
+    <nz-table nzSimple="false" nzShowPagination="false" [nzLoading]="loadingCollection" #basicTable [nzData]="collection">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>CPF</th>
+          <th>Celular</th>
+          <th nzWidth="25%" nzAlign="center">Ação</th>
+          <!-- <th>Ações</th> -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of basicTable.data">
+          <td>{{data.name}}</td>
+          <td>{{data.document | mask:"000.000.000-00"}}</td>
+          <td>{{data.cellphone | mask:"(00) 0 0000-0000"}}</td>
+          <!-- <td>
+            <nz-switch [(ngModel)]="data.active"></nz-switch>
+          </td> -->
+          <td nzAlign="center">
+            <a nz-button nzType="primary" (click)="openModal(data)"><i nz-icon nzType="edit" nzTheme="outline"></i>
+              Editar</a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a nz-popconfirm nzPopconfirmTitle="Deseja realmente deletar?" nzPopconfirmPlacement="bottom"
+              (nzOnConfirm)="delete(data.id)" nz-button nzType="primary"><i nz-icon nzType="delete"
+                nzTheme="outline"></i> Delete</a>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>
+
+<nz-modal  [nzOkLoading]="modal.loading" [(nzVisible)]="modal.isVisible" nzTitle="Usuário"
+  (nzOnCancel)="handleModalCancel()" (nzOnOk)="handleModalOk()">
+  <form nz-form [formGroup]="formModal">
+    <nz-form-item class="mb-1">
+      <nz-form-label nzRequired="true" [nzSpan]="24">Nome</nz-form-label>
+      <nz-form-control [nzSpan]="24" nzErrorTip="Primeiro nome requerido">
+        <input nz-input formControlName="name" placeholder="..." />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="mb-1">
+      <nz-form-label nzRequired="true" [nzSpan]="24">CPF</nz-form-label>
+      <nz-form-control [nzSpan]="24" nzErrorTip="Obrigatório">
+        <input nz-input mask="CPF_CNPJ" formControlName="document" placeholder="..." />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="mb-1">
+      <nz-form-label  nzRequired="true" [nzSpan]="24">Sexo</nz-form-label>
+      <nz-form-control [nzSpan]="24" nzErrorTip="Código nescessário">
+        <nz-select placeholder="(77) 9 9999-9999" formControlName="sexo" nzAllowClear>
+          <nz-option [nzLabel]="'Masculino'" nzValue="Masculino"></nz-option>
+          <nz-option [nzLabel]="'Feminino'" nzValue="Feminino"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="mb-1">
+      <nz-form-label nzRequired="true" [nzSpan]="24">Tipo</nz-form-label>
+      <nz-form-control [nzSpan]="24" nzErrorTip="Tipo nescessário">
+        <nz-select formControlName="type_people" nzAllowClear>
+          <nz-option nzLabel="Fisica" [nzValue]="true"></nz-option>
+          <nz-option nzLabel="Juridica" [nzValue]="false"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="mb-1">
+      <nz-form-label [nzSpan]="24">Nascimento</nz-form-label>
+      <nz-form-control [nzSpan]="24" nzErrorTip="Nascimento nescessário">
+        <nz-date-picker nzFormat="dd-MM-yyyy" formControlName="birth_date"></nz-date-picker>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="mb-1">
+      <nz-form-label [nzSpan]="24">Razão Social</nz-form-label>
+      <nz-form-control [nzSpan]="24">
+        <input nz-input formControlName="razao_social" placeholder="..." />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="mb-1">
+      <nz-form-label [nzSpan]="24">Celular</nz-form-label>
+      <nz-form-control [nzSpan]="24" nzErrorTip="Código nescessário">
+        <input nz-input mask="(00) 0 0000-0000" formControlName="cellphone" placeholder="(77) 9 9999-9999" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="mb-1">
+      <nz-form-label [nzSpan]="24">Telefône</nz-form-label>
+      <nz-form-control [nzSpan]="24" nzErrorTip="Código nescessário">
+        <input nz-input mask="(00) 0000-0000" formControlName="telephone" placeholder="(77) 9999-9999" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="mb-1">
+      <nz-form-label [nzSpan]="24">Email</nz-form-label>
+      <nz-form-control [nzSpan]="24">
+        <input nz-input formControlName="email" placeholder="email@exemplo.com.br" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="mb-1">
+      <nz-form-label [nzSpan]="24">Nome mãe</nz-form-label>
+      <nz-form-control [nzSpan]="24">
+        <input nz-input formControlName="mother_name" placeholder="..." />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="mb-1">
+      <nz-form-label [nzSpan]="24">Nome pai</nz-form-label>
+      <nz-form-control [nzSpan]="24">
+        <input nz-input formControlName="father_name" placeholder="..." />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="mb-1">
+      <nz-form-label [nzSpan]="24">RG</nz-form-label>
+      <nz-form-control [nzSpan]="24">
+        <input nz-input formControlName="rg" placeholder="000.000.000" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="mb-1">
+      <nz-form-label [nzSpan]="24">RG Orgao</nz-form-label>
+      <nz-form-control [nzSpan]="24">
+        <input nz-input formControlName="rg_orgao" placeholder="ssp" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="mb-1">
+      <nz-form-label [nzSpan]="24">RG Expedição</nz-form-label>
+      <nz-form-control [nzSpan]="24">
+        <nz-date-picker nzFormat="dd-MM-yyyy" formControlName="rg_data_expedicao"></nz-date-picker>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="mb-1">
+      <nz-form-label [nzSpan]="24">Estado Civil</nz-form-label>
+      <nz-form-control [nzSpan]="24">
+        <nz-select formControlName="marital_status" nzAllowClear>
+          <nz-option nzLabel="Solteiro(a)" nzValue="Solteiro(a)"></nz-option>
+          <nz-option nzLabel="Casado(a)" nzValue="Casado(a)"></nz-option>
+          <nz-option nzLabel="Divorciado(a)" nzValue="Divorciado(a)"></nz-option>
+          <nz-option nzLabel="Viúvo(a)" nzValue="Viúvo(a)"></nz-option>
+          <nz-option nzLabel="Separado(a)" nzValue="Separado(a)"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="mb-1">
+      <nz-form-label [nzSpan]="24">Naturalidade</nz-form-label>
+      <nz-form-control [nzSpan]="24">
+        <input nz-input formControlName="naturalness" placeholder="..." />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="mb-1">
+      <nz-form-label [nzSpan]="24">Nacionalidade</nz-form-label>
+      <nz-form-control [nzSpan]="24">
+        <input nz-input formControlName="nationality" placeholder="..." />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="mb-1">
+      <nz-form-label [nzSpan]="24">CEP</nz-form-label>
+      <nz-form-control [nzSpan]="24">
+        <input nz-input mask="00000-000" formControlName="zip_code" placeholder="00000-000" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="mb-1">
+      <nz-form-label [nzSpan]="24">Logradouro</nz-form-label>
+      <nz-form-control [nzSpan]="24">
+        <input nz-input formControlName="public_place" placeholder="..." />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="mb-1">
+      <nz-form-label [nzSpan]="24">Número</nz-form-label>
+      <nz-form-control [nzSpan]="24">
+        <input nz-input formControlName="number" placeholder="..." />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="mb-1">
+      <nz-form-label [nzSpan]="24">Complemento</nz-form-label>
+      <nz-form-control [nzSpan]="24">
+        <input nz-input formControlName="complement" placeholder="..." />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="mb-1">
+      <nz-form-label [nzSpan]="24">Bairro</nz-form-label>
+      <nz-form-control [nzSpan]="24">
+        <input nz-input formControlName="neighborhood" placeholder="..." />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="mb-1">
+      <nz-form-label [nzSpan]="24">Cidade</nz-form-label>
+      <nz-form-control [nzSpan]="24">
+        <input nz-input formControlName="cyte" placeholder="..." />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="mb-1">
+      <nz-form-label [nzSpan]="24">UF</nz-form-label>
+      <nz-form-control [nzSpan]="24">
+        <nz-select formControlName="uf" >
+          <nz-option *ngFor="let item of uf" placeholder="Uf" [nzValue]="item.uf" [nzLabel]="item.name"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="mb-1">
+      <nz-form-label [nzSpan]="24">Profissao</nz-form-label>
+      <nz-form-control [nzSpan]="24">
+        <input nz-input formControlName="profession" placeholder="..." />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="mb-1">
+      <nz-form-label [nzSpan]="24">Inscrição Estadual</nz-form-label>
+      <nz-form-control [nzSpan]="24">
+        <input nz-input formControlName="state_subscription" placeholder="000000" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="mb-1">
+      <nz-form-label [nzSpan]="24">Inscrição municipal</nz-form-label>
+      <nz-form-control [nzSpan]="24">
+        <input nz-input formControlName="municipality_registration" placeholder="000000" />
+      </nz-form-control>
+    </nz-form-item>
+    <!-- <nz-form-item class="mb-1">
+      <nz-form-label [nzSpan]="24">Assinante</nz-form-label>
+      <nz-form-control [nzSpan]="24">
+        <input nz-input formControlName="assinante" placeholder="(77) 9 9999-9999" />
+      </nz-form-control>
+    </nz-form-item> -->
+    <!-- <nz-form-item class="mb-1">
+      <nz-form-label [nzSpan]="24">Ativo</nz-form-label>
+      <nz-form-control [nzSpan]="24">
+        <nz-switch formControlName="active"></nz-switch>
+      </nz-form-control>
+    </nz-form-item> -->
+  </form>
+</nz-modal>

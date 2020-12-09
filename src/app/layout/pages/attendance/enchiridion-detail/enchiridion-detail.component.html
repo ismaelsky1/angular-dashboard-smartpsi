@@ -1,0 +1,36 @@
+<nz-page-header class="Painel-Manutenção-Modulo" [nzTitle]="component?.name">
+  <nz-breadcrumb nz-page-header-breadcrumb>
+    <nz-breadcrumb-item><i nz-icon nzTheme="outline" nzType="home"></i></nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      Atendimento
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item [routerLink]="['/prontuario']">Prontuarios</nz-breadcrumb-item>
+    <nz-breadcrumb-item>Detalhe</nz-breadcrumb-item>
+  </nz-breadcrumb>
+  <nz-page-header-extra>
+    <button (click)="getReportPdf()" nz-button nzType="link"> <i nz-icon nzType="printer"></i> Imprimir todos</button>
+  </nz-page-header-extra>
+</nz-page-header>
+<br />
+
+<nz-card *ngFor="let item of collection" style="width:100%;">
+  <div nz-row nzGutter="0">
+    <div nz-col nzSpan="16">
+      <h4>SESSÃO DIA {{item.start_hour | date: 'dd/MM/yyyy hh:mm'}} AS
+        {{item.end_hour | date: 'hh:mm'}}</h4>
+    </div>
+    <div nz-col nzSpan="4">
+      <button nzBlock="true" style="margin-left: auto;" (click)="getReportPdf(item)" nz-button nzType="text"> <i nz-icon nzType="printer"></i>
+        Imprimir</button>
+    </div>
+    <div nz-col nzSpan="4">
+      <button nzBlock="true" style="margin-left: auto;" (click)="update(item)" nz-button nzType="primary"> <i nz-icon nzType="save"></i>
+        Salvar</button>
+    </div>
+  </div>
+  <hr>
+  <ckeditor [editor]="Editor"
+    [config]="{ toolbar: [ 'heading', '|', 'bold', 'italic','ExportWord' ,'|', 'bulletedList', 'numberedList', 'blockQuote','link','|','undo','redo' ] }"
+    [data]="item.comments" [(ngModel)]="item.comments" ></ckeditor>
+  <br />
+</nz-card>

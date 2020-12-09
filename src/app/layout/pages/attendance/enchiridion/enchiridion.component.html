@@ -1,0 +1,39 @@
+<nz-page-header class="Painel-Manutenção-Modulo" nzTitle="Prontuarios">
+    <nz-breadcrumb nz-page-header-breadcrumb>
+        <nz-breadcrumb-item><i nz-icon nzTheme="outline" nzType="home"></i></nz-breadcrumb-item>
+        <nz-breadcrumb-item>
+            Atendimento
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>Prontuario</nz-breadcrumb-item>
+    </nz-breadcrumb>
+    <nz-page-header-extra>
+      <nz-input-group [nzSuffix]="suffixTemplate">
+        <input (keyup)="searchPeoples(filter.peolpes)" [type]="'text'" nz-input placeholder="Buscar" [(ngModel)]="filter.peolpes" />
+      </nz-input-group>
+      <ng-template #suffixTemplate>
+        <i nz-icon [nzType]="'search'"></i>
+      </ng-template>
+    </nz-page-header-extra>
+</nz-page-header>
+<nz-table #basicTable [nzPageSize]="6"
+    [nzData]="collection">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>sexo</th>
+            <th>CPF</th>
+            <th>Ação</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of basicTable.data">
+            <td>{{data.name}}</td>
+            <td>{{data.sexo}}</td>
+            <td>{{data.document}}</td>
+            <td>
+                <a [routerLink]="['/enchiridion',data.id]"
+                 ><i nz-icon nzType="folder-open" nzTheme="outline"></i> Ver</a>
+            </td>
+        </tr>
+    </tbody>
+</nz-table>

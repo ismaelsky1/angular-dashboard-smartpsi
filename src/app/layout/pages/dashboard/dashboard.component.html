@@ -1,0 +1,129 @@
+<div class="dashboard" nz-row nzAlign="bottom" [nzGutter]="[16,16]">
+  <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="8" nzXl="8" nzSpan="8">
+    <nz-card>
+      <div nz-row nzAlign="top">
+        <div nz-col nzSpan="7">
+          <nz-avatar class="dash_agenda" [nzSize]="70" nzIcon="calendar"></nz-avatar>
+        </div>
+        <div nz-col nzSpan="17">
+          <h2 nz-typography class="value_dash">{{todaysAgenda.cardNumbers.appointment}}</h2>
+          <h4 nz-typography class="title_dash" nzType="secondary">Atendimentos Agendados</h4>
+        </div>
+      </div>
+    </nz-card>
+  </div>
+  <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="8" nzXl="8" nzSpan="8">
+    <nz-card>
+      <div nz-row nzAlign="top">
+        <div nz-col nzSpan="7">
+          <nz-avatar class="dash_check" [nzSize]="70" nzIcon="check"></nz-avatar>
+        </div>
+        <div nz-col nzSpan="17">
+          <h2 nz-typography class="value_dash">{{todaysAgenda.cardNumbers.servicesPerformed}}</h2>
+          <h4 nz-typography class="title_dash" nzType="secondary">Atendimentos realizados</h4>
+        </div>
+      </div>
+    </nz-card>
+  </div>
+  <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="8" nzXl="8" nzSpan="8">
+    <nz-card>
+      <div nz-row nzAlign="top">
+        <div nz-col nzSpan="7">
+          <nz-avatar class="dash_stop" [nzSize]="70" nzIcon="stop"></nz-avatar>
+        </div>
+        <div nz-col nzSpan="17">
+          <h2 nz-typography class="value_dash">{{todaysAgenda.cardNumbers.canceledCalls}}</h2>
+          <h4 nz-typography class="title_dash" nzType="secondary">Atendimentos Cancelados</h4>
+        </div>
+      </div>
+    </nz-card>
+  </div>
+</div>
+<div nz-row nzAlign="top" [nzGutter]="[16,16]">
+  <div nz-col nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="16" nzXl="16" nzSpan="16" nzSpan="16">
+    <nz-card>
+      <div class="site-page-header-wrapper">
+        <nz-page-header id="header-agenda" [nzGhost]="true">
+          <nz-page-header-title>Agenda de hoje
+          </nz-page-header-title>
+          <nz-page-header-subtitle>({{today | date: 'dd/MM/yyyy'}})</nz-page-header-subtitle>
+          <nz-page-header-extra>
+            <button [routerLink]="['/appointment']" nz-button class="btn button_primary">Agenda Completa</button>
+          </nz-page-header-extra>
+
+        </nz-page-header>
+        <nz-list class="demo-loadmore-list">
+          <nz-list-item *ngFor="let item of todaysAgenda.appointment">
+            <ng-container>
+              <nz-list-item-meta>
+                <nz-list-item-meta-title>
+                  <i nz-icon nzType="field-time" nzTheme="outline"></i> {{item.start_hour | date: 'dd/MM/yyyy hh:mm'}}
+                  as {{item.end_hour | date: 'hh:mm'}}
+                  <nz-tag *ngIf="item.status == 'OPEN'" nzColor="blue">Agendado</nz-tag>
+                  <nz-tag *ngIf="item.status == 'CONCLUDED'" nzColor="success">Concluido</nz-tag>
+                  <nz-tag *ngIf="item.status == 'CANCELED'" nzColor="error">Cancelado</nz-tag>
+                  <br />Paciente:
+                  <strong> {{item.peoples.name}}</strong>
+                </nz-list-item-meta-title>
+              </nz-list-item-meta>
+              <ul nz-list-item-actions>
+                <nz-list-item-action>
+                  <nz-button-group>
+                    <button class="btn button_secondary" nz-button>Ação</button>
+                    <button class="btn button_secondary" nz-button nz-dropdown [nzDropdownMenu]="menu"
+                      nzPlacement="bottomRight">
+                      <i nz-icon nzTheme="outline" nzType="ellipsis"></i>
+                    </button>
+                  </nz-button-group>
+                  <nz-dropdown-menu class="acao" #menu="nzDropdownMenu">
+                    <ul nz-menu>
+                      <li *ngIf="item.status !== 'OPEN'" (click)="update(item.id,'OPEN')" nz-menu-item>
+                        Agendar
+                      </li>
+                      <li *ngIf="item.status !== 'CONCLUDED'" (click)="update(item.id,'CONCLUDED')" nz-menu-item>
+                        Concluir
+                      </li>
+                      <li *ngIf="item.status !== 'CANCELED'" (click)="update(item.id,'CANCELED')" nz-menu-item>
+                        Cancelar
+                      </li>
+                    </ul>
+                  </nz-dropdown-menu>
+                </nz-list-item-action>
+
+                <nz-list-item-action>
+                  <button [routerLink]="['/enchiridion/',item.peoplesId]" nz-button class="btn button_secondary">Abrir
+                    Prontuário
+                  </button>
+                </nz-list-item-action>
+              </ul>
+            </ng-container>
+          </nz-list-item>
+        </nz-list>
+      </div>
+    </nz-card>
+  </div>
+  <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="8" nzXl="8" nzSpan="8" nzSpan="8">
+    <nz-card>
+      <ng-template #titleList>
+        <h3>Aniversariantes do mês</h3>
+      </ng-template>
+
+      <nz-list [nzHeader]="titleList" class="demo-loadmore-list">
+        <nz-list-item *ngFor="let item of todaysAgenda.birthdays">
+          <ng-container>
+            <nz-list-item-meta nzAvatar="assets/images/avatar.jpg"
+              nzDescription="{{ item.name }}">
+              <nz-list-item-meta-title>
+                {{ item.cellphone}}
+              </nz-list-item-meta-title>
+            </nz-list-item-meta>
+            <ul nz-list-item-actions>
+              <nz-list-item-action> {{ item.birth_date | date: 'dd/MM/yyyy' }}</nz-list-item-action>
+            </ul>
+          </ng-container>
+        </nz-list-item>
+
+      </nz-list>
+    </nz-card>
+  </div>
+</div>

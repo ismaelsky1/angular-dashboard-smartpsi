@@ -1,0 +1,89 @@
+<nz-layout style="margin: -28px;">
+  <div nz-row>
+    <div nz-col nzXs="0" nzSm="0" nzMd="10" nzLg="8" nzXl="8">
+      <img class="bg-login" src='assets/images/bg3.png'>
+    </div>
+    <div class="" nz-col nzXs="24" nzSm="24" nzMd="14" nzLg="16" nzXl="16">
+      <form *ngIf="signMode == 'signUp'" class="form-login" nz-form [formGroup]="signUpForm" (ngSubmit)="handledSignUp()">
+        <img src="../../../../assets/images/1-01.png" class="logo" />
+        <!-- <nz-form-item>
+          <nz-form-label nzSpan="24" nzFor="email"><label class="label-form">Nome do Escritorio</label></nz-form-label>
+          <nz-form-control nzErrorTip="Informe o campo Nome do Escritorio!">
+            <nz-input-group>
+              <input id='email' type="text" nz-input formControlName="fantasy_name" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item> -->
+        <nz-form-item>
+          <nz-form-label nzSpan="24" nzFor="email"><label class="label-form">Seu nome completo</label></nz-form-label>
+          <nz-form-control nzErrorTip="Informe o campo Seu nome completo!">
+            <nz-input-group>
+              <input id='email' type="text" nz-input formControlName="full_name" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzSpan="24" nzFor="email"><label class="label-form">Email</label></nz-form-label>
+          <nz-form-control nzErrorTip="Informe o campo Email!">
+            <nz-input-group>
+              <input id='email' type="text" nz-input formControlName="email" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item *ngIf="alertError">
+          <nz-alert nzType="error" [nzMessage]="alertError"></nz-alert>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control>
+            <button *ngIf="!successSignUp" [nzLoading]="loadingSign" nzShape="round" nz-button nzSize="large" [nzType]="'primary'" nzBlock>
+              Cadastrar
+            </button>
+            <br /><br />
+            <p style="text-align: center; color: #999999">OU</p>
+
+            <p class='sign-up'> Já possui conta? <a (click)="signChange('signIn')">Entrar</a></p>
+
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+      <form *ngIf="signMode == 'signIn'" class="form-login" nz-form [formGroup]="signInForm" (ngSubmit)="handledSignIn()">
+        <img src="../../../../assets/images/1-01.png" class="logo" />
+        <nz-form-item>
+          <nz-form-label nzSpan="24" nzFor="email"><label class="label-form">Email</label></nz-form-label>
+          <nz-form-control nzErrorTip="Informe o campo Email!">
+            <nz-input-group>
+              <input id='email' type="text" nz-input formControlName="email" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzSpan="24" nzFor="email"><label class="label-form">Senha</label></nz-form-label>
+          <nz-form-control nzErrorTip="Informe o campo senha!">
+            <nz-input-group>
+              <input type="password" nz-input formControlName="password" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item *ngIf="alertError">
+          <nz-alert nzType="error" [nzMessage]="alertError"></nz-alert>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control>
+            <a href="/recover-password">
+              <p class="login-form-forgot">Esqueceu a senha?</p>
+            </a>
+            <button [nzLoading]="loadingSign" nzShape="round" nz-button nzSize="large" [nzType]="'primary'" nzBlock>
+              Entrar
+            </button>
+            <br /><br />
+            <p style="text-align: center; color: #999999">OU</p>
+
+            <p class='sign-up'> Ainda não possui conta? <a (click)="signChange('signUp')">Cadastre-se</a></p>
+
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+
+    </div>
+  </div>
+</nz-layout>

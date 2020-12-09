@@ -1,0 +1,85 @@
+
+.icon-header{
+  display: table-cell;
+  vertical-align: top;
+}
+.icon-header .anticon{
+  width: 40px;
+  height: 40px;
+  line-height: 43px;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 18px;
+}
+p{
+  line-height: 12px;
+}
+.bg-orange{
+  background-color: orange;
+}
+
+.bg-blue{
+  background-color: #358ed7;
+}
+
+.bg-purple{
+  background-color: #838cc7;
+}
+
+.bg-red{
+  background-color: #df4c4c;
+}
+
+.bg-green{
+  background-color: #7dc855;
+}
+
+
+
+.text-green{
+  color: #7dc855;
+}
+.text-danger{
+  color: red;
+}
+
+.no-border{
+  border:none !important;
+}
+
+nz-card{
+  border-radius: 5px;
+}
+
+.dash_agenda{
+  background-color:#8a909d; 
+}
+.dash_check{
+  background-color: #29cc97;
+}
+.dash_stop{
+  background-color: #fe5461;
+}
+.value_dash{
+  color: cornflowerblue;
+  margin: 5px;
+}
+.title_dash{
+  color: #8a909d;
+  margin: 5px;
+}
+
+nz-button-group {
+  margin: 0 8px 8px 0;
+}
+
+.dashboard{
+    padding-top: 10px;
+}
+
+#header-agenda{
+  padding: 0px;
+  padding-right: 10px;
+}
+
+

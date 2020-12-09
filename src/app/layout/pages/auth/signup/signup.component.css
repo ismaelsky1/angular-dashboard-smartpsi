@@ -1,0 +1,22 @@
+.bg-login {
+  background-image: url("../../../../../assets/images/back.png");
+  background-position: 25% center;
+  background-repeat: no-repeat;
+  background-size: 45%;
+  height: 100%;
+}
+
+.form-login {
+  border-radius: 4px;
+  padding: 60px;
+  padding-top: 0px;
+  background: #fff;
+  width: 90%;
+  box-shadow: 1px 1px 7px 0px rgba(0, 0, 0, 0.1);
+  /*float: left;*/
+}
+
+nz-layout {
+  /* padding: 60px 0; */
+  background-color: transparent;
+}

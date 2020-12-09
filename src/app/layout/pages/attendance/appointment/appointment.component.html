@@ -1,0 +1,72 @@
+<div nz-row nzGutter="8">
+  <div nz-col nzSpan="24">
+    <nz-modal [(nzVisible)]="modal.isVisible" [nzOkLoading]="modal.loading" [nzTitle]="modal.title"
+      (nzOnCancel)="handleModalCancel()" (nzOnOk)="handleModalOk()">
+      <form nz-form [formGroup]="dateForm" (ngSubmit)="submitForm()">
+
+        <div nz-row nzGutter="5">
+          <div nz-col nzSpan="18">
+            <nz-form-item>
+              <nz-form-label [nzSpan]="24">Nome</nz-form-label>
+              <nz-form-control nzErrorTip="Please input your username!">
+                <nz-select style="width: 100% !important;" nzShowSearch nzAllowClear nzPlaceHolder="Paciente"
+                  formControlName="peoplesId">
+                  <nz-option *ngFor="let item of people" [nzLabel]="item.name" [nzValue]="item.id">
+                  </nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div nz-col nzSpan="6">
+            <nz-form-item>
+              <nz-form-label [nzSpan]="24">Novo paciente</nz-form-label>
+              <nz-form-control nzErrorTip="Please input your username!">
+                <button [routerLink]="['/peoples']" nz-button nzType="primary" nzBlock="true">Novo paciente</button>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div nz-col nzSpan="8">
+            <nz-form-item>
+              <nz-form-label nzSpan="24">Início</nz-form-label>
+              <nz-form-control nzSpan="24" nzErrorTip="Informe início">
+                <nz-time-picker [nzUse12Hours]="false" [nzPlaceHolder]="'Início'" formControlName="start_hour"
+                  nzFormat="H:mm"></nz-time-picker>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div nz-col nzSpan="8">
+            <nz-form-item>
+              <nz-form-label nzSpan="24">Término</nz-form-label>
+              <nz-form-control nzSpan="24" nzErrorTip="Informe o Final">
+                <nz-time-picker [nzUse12Hours]="false" [nzPlaceHolder]="'Final'" formControlName="end_hour"
+                  nzFormat="H:mm">
+                </nz-time-picker>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div nz-col nzSpan="8">
+            <nz-form-item>
+              <nz-form-label [nzSpan]="24">Status</nz-form-label>
+              <nz-form-control nzErrorTip="Please input your username!">
+                <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Paciente" formControlName="status">
+                  <nz-option
+                    *ngFor="let item of [{name: 'Agendar',slug: 'OPEN'},{name: 'Concluida',slug: 'CONCLUDED'},{name: 'Cancelar',slug: 'CANCELED'}]"
+                    [nzLabel]="item.name" [nzValue]="item.slug"></nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+
+          <div *ngIf="dateForm.value.id" nz-col nzSpan="24">
+            <button [routerLink]="['/enchiridion/',dateForm.value.peoplesId]" nz-button nzType="primary" nzBlock="true"
+              nzSize="large">Prontuario</button>
+          </div>
+        </div>
+      </form>
+
+    </nz-modal>
+  </div>
+  <div nz-col nzSpan="24">
+    <full-calendar [options]="calendarOptions"></full-calendar>
+  </div>
+</div>
