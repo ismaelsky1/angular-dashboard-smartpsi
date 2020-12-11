@@ -38,7 +38,7 @@
           </li>
         </ul>
       </li>
-      <li nz-submenu nzTitle="Gestão" nzIcon="setting">
+      <li *ngIf="this.userSession?.role == 'ROOT'" nz-submenu nzTitle="Gestão" nzIcon="setting">
         <ul>
           <li *ngIf="this.userSession?.role == 'ROOT'" routerLink="/module" nz-menu-item nzMatchRouter>
             <i nz-icon nzType="border" nzTheme="outline"></i>
@@ -63,6 +63,14 @@
           <li *ngIf="this.userSession?.role == 'ROOT'" routerLink="/users" nz-menu-item nzMatchRouter>
             <i nz-icon nzType="user" nzTheme="outline"></i>
             <a>usuários</a>
+          </li>
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="Ajuda" nzIcon="question">
+        <ul>
+          <li routerLink="/tutorial" nz-menu-item nzMatchRouter>
+            <i nz-icon nzType="right" nzTheme="outline"></i>
+            <a>Começando </a>
           </li>
         </ul>
       </li>

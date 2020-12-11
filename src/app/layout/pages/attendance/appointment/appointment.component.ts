@@ -41,6 +41,8 @@ export class AppointmentComponent implements OnInit {
       center: '',
       right: 'title',//'dayGridMonth',
     },
+    titleFormat: { day: 'numeric', month: 'numeric', year: 'numeric' },
+
     buttonText: {
       today: 'Hoje'
     },

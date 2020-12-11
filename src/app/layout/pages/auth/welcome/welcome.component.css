@@ -2,9 +2,34 @@
   border-radius: 4px;
   padding: 60px;
   padding-top: 40px;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.774);
   width: 100%;
   box-shadow: 1px 1px 7px 0px rgba(0,0,0,0.1);
   float: left;
+  margin-top: 30px;
+  margin-bottom: 100px;
 }
+
+
+@media only screen and (min-width: 620px) {
+  .bg{
+    margin: -30px;
+  
+    background-image: url("../../../../../assets/images/bg5.jpg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+  }
+}
+
+@media only screen and (max-width: 620px) {
+  .bg{
+    margin: -30px;
+  
+    background-image: url("../../../../../assets/images/bg5.jpg");
+    background-size: 400%;
+    background-repeat: no-repeat;
+    background-position: -750px;
+  }
+}
+
 
