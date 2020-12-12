@@ -82,18 +82,6 @@ export class EnchiridionDetailComponent implements OnInit {
       params = { peoplesId: this.component.id };
     }
 
-    console.log(this.component);
-    // if (
-    //   !user.subscribers.fantasy_name &&
-    //   !user.subscribers.address &&
-    //   !user.subscribers.number &&
-    //   !user.subscribers.district &&
-    //   !user.subscribers.state &&
-    //   !user.subscribers.city
-    // ) {
-    //   throw new AppError(["Preencha os dados na empresa em seu perfil antes de imprimir o relatorio!"]);
-    // }
-
     this.loadingPDF = true;
     this.appointmentService.getReportPdf(params).subscribe(response => {
       const blob = new Blob([response], { type: 'application/octet-stream' });
