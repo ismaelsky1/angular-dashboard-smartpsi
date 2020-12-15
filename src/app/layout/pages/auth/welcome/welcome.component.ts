@@ -43,6 +43,7 @@ export class WelcomeComponent implements OnInit {
   }
 
   submitForm() {// tslint:disable-next-line: forin
+    
     for (const i in this.forgotPasswordForm.controls) {
       this.forgotPasswordForm.controls[i].markAsDirty();
       this.forgotPasswordForm.controls[i].updateValueAndValidity();
@@ -55,9 +56,7 @@ export class WelcomeComponent implements OnInit {
       this.forgotPasswordForm.controls.confirm_password.setErrors({ 'incorrect': true });
     }
     if (this.forgotPasswordForm.valid) {
-    console.log(123);
-    console.log(this.forgotPasswordForm.valid);
-
+  
       this.recoverPasswordService.redefinePassword(this.forgotPasswordForm.value).subscribe(response => {
         this.alertResponse = "Aproveite, tenha um otimo trabalho!";
 
