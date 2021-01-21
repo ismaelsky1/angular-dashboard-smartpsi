@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ChangePasswordService } from "../../services/change-password.service";
 import { NzNotificationService } from "ng-zorro-antd";
 import { MenuService } from 'src/app/services/menu.service';
+import { format, compareAsc, differenceInDays } from 'date-fns';
 
 @Component({
   selector: 'app-main-layout',
@@ -65,13 +66,26 @@ export class MainLayoutComponent implements OnInit {
     this.menuService.index().subscribe(response => {
       this.menu = response;
     });
-  }
+  };
 
   loadUser() {
     this.usersService.show(this.userToken.sub).subscribe(response => {
       this.userSession = response;
+
+
+      if (this.userSession.role == 'FREE' && this.userSession.created_at) {
+
+        const dat1 = new Date(this.userSession.created_at);
+        const dat2 = new Date();
+        const diff = differenceInDays(dat2, dat1);
+
+        if(diff > 15){
+          document.location.href = 'https://smartpsi.com.br/#buy-tickets';
+        }
+      }
+     
     });
-  }
+  };
 
   logout() {
     this.authenticationService.logout();
@@ -96,7 +110,7 @@ export class MainLayoutComponent implements OnInit {
       );
       this.modalPassword.loading = false;
       this.modalPassword.isVisibled = false;
-    }, err=>{
+    }, err => {
       this.modalPassword.loading = false;
 
     });

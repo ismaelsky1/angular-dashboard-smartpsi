@@ -48,7 +48,7 @@ export class AuthenticationService {
       id = null;
     }
 
-    if (token.role === 'USER') {
+    if (token.role === 'USER' || token.role === 'FREE') {
       id = token.sub;
     }
 

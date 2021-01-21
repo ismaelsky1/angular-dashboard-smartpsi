@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
       // password: [null, Validators.required],
       // check_password: [null, Validators.required],
       status: ['approved', Validators.required],
-      role: ['USER', Validators.required]
+      role: ['FREE', Validators.required]
     });
 
     this.signInForm = this.formBuilder.group({

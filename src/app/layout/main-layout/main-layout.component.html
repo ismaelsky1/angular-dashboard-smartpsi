@@ -82,10 +82,15 @@
         <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
           <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
         </span>
+
         <span style="float: right;margin: 0px 20px;cursor: pointer" nz-dropdown [nzDropdownMenu]="menu1">
           <strong style="padding: 0 10px">{{userToken?.name}}</strong>
           <nz-avatar [nzSize]="44"  nzSrc="{{urlApi}}{{userSession?.avatar}}"></nz-avatar>
         </span>
+
+        <a *ngIf="userSession?.role == 'FREE'" href="https://pay.hotmart.com/R42158829C?off=uycij1fa" style="float: right;margin: 0px 20px;cursor: pointer">
+          <button nz-button nzType="primary" nzGhost="true" [nzSize]="12"><b>Conta Free </b><i nz-icon nzType="dollar"></i>Assinar!</button>
+        </a>
         <!-- <span style="float: right;margin: 0px 0px;cursor: pointer" nz-dropdown [nzDropdownMenu]="notification">
           <nz-avatar [nzSize]="44" nzIcon="bell"></nz-avatar>
         </span> -->

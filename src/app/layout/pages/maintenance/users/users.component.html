@@ -4,6 +4,7 @@
   </div>
   <div nz-col nzSpan="3">
     <nz-select style="width: 100% !important;" [(ngModel)]="filters.role">
+      <nz-option nzValue="FREE" nzLabel="Conta Teste">Conta Teste</nz-option>
       <nz-option nzValue="USER" nzLabel="Assinante">Assinante</nz-option>
       <nz-option nzValue="AUX" nzLabel="Atendente">Atendente</nz-option>
       <nz-option *ngIf="userToken.role == 'ROOT'" nzValue="ROOT" nzLabel="Atendente">ROOT</nz-option>
