@@ -2,7 +2,7 @@
   <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="8" nzXl="8" nzSpan="8">
     <nz-card>
       <div nz-row nzAlign="top">
-        <div nz-col nzSpan="7">
+        <div nz-col nzMd="7" nzSm="24">
           <nz-avatar class="dash_agenda" [nzSize]="70" nzIcon="calendar"></nz-avatar>
         </div>
         <div nz-col nzSpan="17">
@@ -15,7 +15,7 @@
   <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="8" nzXl="8" nzSpan="8">
     <nz-card>
       <div nz-row nzAlign="top">
-        <div nz-col nzSpan="7">
+        <div nz-col nzMd="7" nzSm="24">
           <nz-avatar class="dash_check" [nzSize]="70" nzIcon="check"></nz-avatar>
         </div>
         <div nz-col nzSpan="17">
@@ -28,7 +28,7 @@
   <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="8" nzXl="8" nzSpan="8">
     <nz-card>
       <div nz-row nzAlign="top">
-        <div nz-col nzSpan="7">
+        <div nz-col nzMd="7" nzSm="24">
           <nz-avatar class="dash_stop" [nzSize]="70" nzIcon="stop"></nz-avatar>
         </div>
         <div nz-col nzSpan="17">
@@ -111,8 +111,7 @@
       <nz-list [nzHeader]="titleList" class="demo-loadmore-list">
         <nz-list-item *ngFor="let item of todaysAgenda.birthdays">
           <ng-container>
-            <nz-list-item-meta nzAvatar="assets/images/avatar.jpg"
-              nzDescription="{{ item.name }}">
+            <nz-list-item-meta nzAvatar="assets/images/avatar.jpg" nzDescription="{{ item.name }}">
               <nz-list-item-meta-title>
                 {{ item.cellphone}}
               </nz-list-item-meta-title>

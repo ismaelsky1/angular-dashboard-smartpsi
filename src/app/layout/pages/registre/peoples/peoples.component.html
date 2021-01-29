@@ -19,7 +19,6 @@
         <tr>
           <th>Nome</th>
           <th>CPF</th>
-          <th>Celular</th>
           <th nzWidth="25%" nzAlign="center">Ação</th>
           <!-- <th>Ações</th> -->
         </tr>
@@ -28,7 +27,6 @@
         <tr *ngFor="let data of basicTable.data">
           <td>{{data.name}}</td>
           <td>{{data.document | mask:"000.000.000-00"}}</td>
-          <td>{{data.cellphone | mask:"(00) 0 0000-0000"}}</td>
           <!-- <td>
             <nz-switch [(ngModel)]="data.active"></nz-switch>
           </td> -->

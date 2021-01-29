@@ -16,6 +16,9 @@ import { format, compareAsc, differenceInDays } from 'date-fns';
 })
 export class MainLayoutComponent implements OnInit {
 
+  public innerWidth: any;
+
+
   public modalPassword = { isVisibled: false, loading: false };
   public isCollapsed: boolean;
   public userToken: any = {};
@@ -42,6 +45,7 @@ export class MainLayoutComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.innerWidth = window.innerWidth;
 
     this.userToken = this.authenticationService.getTokenDecode();
     this.loadUser();
@@ -79,11 +83,11 @@ export class MainLayoutComponent implements OnInit {
         const dat2 = new Date();
         const diff = differenceInDays(dat2, dat1);
 
-        if(diff > 15){
+        if (diff > 15) {
           document.location.href = 'https://smartpsi.com.br/#buy-tickets';
         }
       }
-     
+
     });
   };
 
@@ -118,6 +122,13 @@ export class MainLayoutComponent implements OnInit {
 
   viewNotification() {
     return 'a';
+  }
+
+  collapsedMobile() {
+    console.log(this.innerWidth)
+    if (this.innerWidth < 500) {
+      this.isCollapsed = true;
+    }
   }
 
 }

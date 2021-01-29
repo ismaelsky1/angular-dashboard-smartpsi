@@ -27,12 +27,11 @@
     </thead>
     <tbody>
         <tr *ngFor="let data of basicTable.data">
-            <td>{{data.name}}</td>
-            <td>{{data.sexo}}</td>
-            <td>{{data.document}}</td>
-            <td>
-                <a [routerLink]="['/enchiridion',data.id]"
-                 ><i nz-icon nzType="folder-open" nzTheme="outline"></i> Ver</a>
+            <td [routerLink]="['/enchiridion',data.id]">{{data.name}}</td>
+            <td [routerLink]="['/enchiridion',data.id]">{{data.sexo}}</td>
+            <td [routerLink]="['/enchiridion',data.id]">{{data.document}}</td>
+            <td [routerLink]="['/enchiridion',data.id]">
+                <a><i nz-icon nzType="folder-open" nzTheme="outline"></i> Ver</a>
             </td>
         </tr>
     </tbody>

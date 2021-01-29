@@ -1,14 +1,10 @@
 import { AuthenticationService } from '../../../../services/authentication.service';
 import { PeoplesService } from '../../registre/peoples/peoples.service';
 import { AppointmentService } from './appointment.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 
 import {
-  CalendarOptions,
-  DateSelectArg,
-  EventClickArg,
-  EventApi,
-  formatIsoTimeString,
+  CalendarOptions
 } from '@fullcalendar/angular';
 
 // import momentPlugin from '@fullcalendar/moment';
@@ -21,14 +17,21 @@ import { Router } from '@angular/router';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { formatDate } from '@angular/common';
 
+// @HostListener('window:resize', ['$event'])
+
 @Component({
   selector: 'smartpsi-appointment',
   templateUrl: './appointment.component.html',
   styleUrls: ['./appointment.component.less'],
 })
 export class AppointmentComponent implements OnInit {
+
+  
+  
   modal = { isVisible: false, title: 'Nova Sessão', loading: false, cancel: true };
   dateForm: FormGroup;
+
+  public innerWidth: any;
 
   tokenSession: any = {};
 
@@ -40,15 +43,18 @@ export class AppointmentComponent implements OnInit {
       left: 'prev,next today',
       center: '',
       right: 'title',//'dayGridMonth',
+
     },
     titleFormat: { day: 'numeric', month: 'numeric', year: 'numeric' },
 
     buttonText: {
       today: 'Hoje'
     },
+    editable: true,
     eventTextColor: 'black',
     locale: 'pt-br',
-    initialView: 'dayGridMonth',
+    //initialView: 'timeline',//'dayGridDay',//'dayGridWeek',
+    
     eventColor: 'black',
     dayMaxEvents: true,
     dateClick: this.handleDateClick.bind(this),
@@ -65,7 +71,15 @@ export class AppointmentComponent implements OnInit {
     private authenticationService: AuthenticationService
   ) { }
 
+  
+
   ngOnInit(): void {
+    
+
+    this.innerWidth = window.innerWidth;
+    if(this.innerWidth < 500){
+      this.calendarOptions.initialView = 'dayGridDay'
+    }
     this.index();
     this.loadPeople();
 

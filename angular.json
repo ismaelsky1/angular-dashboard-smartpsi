@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ng-smartpsi": {
+    "smart-psi": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ng-smartpsi",
+            "outputPath": "dist/smart-psi",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -35,7 +35,8 @@
                 "glob": "_redirects",
                 "input": "src",
                 "output": "/"
-              }
+              },
+              "src/manifest.webmanifest"
             ],
             "styles": [
               "src/theme.less",
@@ -70,25 +71,27 @@
                   "maximumWarning": "6kb",
                   "maximumError": "10kb"
                 }
-              ]
+              ],
+              "serviceWorker": true,
+              "ngswConfigPath": "ngsw-config.json"
             }
           }
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ng-smartpsi:build"
+            "browserTarget": "smart-psi:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "ng-smartpsi:build:production"
+              "browserTarget": "smart-psi:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ng-smartpsi:build"
+            "browserTarget": "smart-psi:build"
           }
         },
         "test": {
@@ -100,7 +103,8 @@
             "karmaConfig": "karma.conf.js",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/manifest.webmanifest"
             ],
             "styles": [
               "node_modules/angular-calendar/css/angular-calendar.css",
@@ -126,16 +130,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "ng-smartpsi:serve"
+            "devServerTarget": "smart-psi:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "ng-smartpsi:serve:production"
+              "devServerTarget": "smart-psi:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "ng-smartpsi"
+  "defaultProject": "smart-psi"
 }

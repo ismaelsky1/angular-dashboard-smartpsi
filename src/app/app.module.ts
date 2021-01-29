@@ -16,6 +16,8 @@ import {LoadingBarRouterModule} from '@ngx-loading-bar/router';
 
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzDescriptionsModule, NzLayoutModule, NzPageHeaderModule, NzAvatarModule, NzBadgeModule, NzPopoverModule, NzCardModule, NzGridModule, NzListModule, NzButtonModule, NzDropDownModule, NzIconModule } from 'ng-zorro-antd';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 registerLocaleData(pt);
 
@@ -47,6 +49,7 @@ registerLocaleData(pt);
     NzButtonModule,
     NzDropDownModule,
     NzIconModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [],
   bootstrap: [AppComponent]
