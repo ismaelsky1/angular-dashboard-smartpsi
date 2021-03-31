@@ -24,20 +24,20 @@ export class AuthenticationService {
     private http: HttpClient,
     private router: Router
   ) {
-    this.currentTokenSubject = new BehaviorSubject<any>(localStorage.getItem('psitoken'));
+    this.currentTokenSubject = new BehaviorSubject<any>(sessionStorage.getItem('psitoken'));
     this.currentToken = this.currentTokenSubject.asObservable();
   }
 
   public getToken() {
-    return localStorage.getItem('psitoken');
+    return sessionStorage.getItem('psitoken');
   }
 
   public getTokenDecode() {
-    return jwt_decode(localStorage.getItem('psitoken'));
+    return jwt_decode(sessionStorage.getItem('psitoken'));
   }
 
   public setToken(token) {
-    localStorage.setItem('psitoken', token);
+    sessionStorage.setItem('psitoken', token);
   }
 
   public getFilter() {
@@ -68,7 +68,7 @@ export class AuthenticationService {
   }
 
   logout() {
-    localStorage.removeItem('psitoken');
+    sessionStorage.removeItem('psitoken');
     this.currentTokenSubject.next(null);
     this.router.navigate(['login']);
   }
