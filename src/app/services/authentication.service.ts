@@ -67,6 +67,13 @@ export class AuthenticationService {
     }));
   }
 
+
+  testHasExpired() {
+    sessionStorage.removeItem('psitoken');
+    this.currentTokenSubject.next(null);
+    document.location.href = 'https://smartpsi.com.br/#buy-tickets';
+  }
+
   logout() {
     sessionStorage.removeItem('psitoken');
     this.currentTokenSubject.next(null);

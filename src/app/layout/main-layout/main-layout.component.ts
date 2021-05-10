@@ -84,7 +84,7 @@ export class MainLayoutComponent implements OnInit {
         const diff = differenceInDays(dat2, dat1);
 
         if (diff > 15) {
-          document.location.href = 'https://smartpsi.com.br/#buy-tickets';
+          this.authenticationService.testHasExpired();
         }
       }
 
