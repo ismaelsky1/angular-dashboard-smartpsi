@@ -9,7 +9,7 @@ import { Injectable } from '@angular/core';
 })
 export class AppointmentService {
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   index(params) {
     return this.http
@@ -55,6 +55,12 @@ export class AppointmentService {
 
   getReportPdf(params) {
     return this.http.get(`${environment.api}/report/`, { params, responseType: 'blob' }).pipe(map(response => {
+      return response;
+    }));
+  }
+
+  getReportPdfClient(id) {
+    return this.http.get(`${environment.api}/reportClient/${id}`, { responseType: 'blob' }).pipe(map(response => {
       return response;
     }));
   }

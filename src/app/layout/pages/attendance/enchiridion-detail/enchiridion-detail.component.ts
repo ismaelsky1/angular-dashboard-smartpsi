@@ -93,4 +93,17 @@ export class EnchiridionDetailComponent implements OnInit {
     });
   }
 
+  getReportPdfClient() {
+
+    this.loadingPDF = true;
+    this.appointmentService.getReportPdfClient(this.component.id).subscribe(response => {
+      const blob = new Blob([response], { type: 'application/octet-stream' });
+      saveAs(blob, `${this.component.name} [dados].pdf`);
+      this.loadingPDF = false;
+
+    }, err => {
+      this.loadingPDF = false;
+    });
+  }
+
 }

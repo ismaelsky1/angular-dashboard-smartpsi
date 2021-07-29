@@ -19,7 +19,7 @@
         <tr>
           <th>Nome</th>
           <th>CPF</th>
-          <th nzWidth="25%" nzAlign="center">Ação</th>
+          <th nzWidth="35%" nzAlign="center">Ação</th>
           <!-- <th>Ações</th> -->
         </tr>
       </thead>
@@ -31,11 +31,14 @@
             <nz-switch [(ngModel)]="data.active"></nz-switch>
           </td> -->
           <td nzAlign="center">
+            <a nz-button nzType="primary" (click)="getReportPdfClient(data)"><i nz-icon nzType="printer" nzTheme="outline"></i>
+              imprimir</a>
+            <nz-divider nzType="vertical"></nz-divider>
             <a nz-button nzType="primary" (click)="openModal(data)"><i nz-icon nzType="edit" nzTheme="outline"></i>
               Editar</a>
             <nz-divider nzType="vertical"></nz-divider>
             <a nz-popconfirm nzPopconfirmTitle="Deseja realmente deletar?" nzPopconfirmPlacement="bottom"
-              (nzOnConfirm)="delete(data.id)" nz-button nzType="primary"><i nz-icon nzType="delete"
+              (nzOnConfirm)="delete(data.id)" nz-button nzType="default" nzDanger><i nz-icon nzType="delete"
                 nzTheme="outline"></i> Delete</a>
           </td>
         </tr>

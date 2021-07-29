@@ -1,3 +1,4 @@
+import { AppointmentService } from './../../attendance/appointment/appointment.service';
 import { AuthenticationService } from './../../../../services/authentication.service';
 import { PeoplesService } from './peoples.service';
 import { Component, OnInit } from '@angular/core';
@@ -55,10 +56,13 @@ export class PeoplesComponent implements OnInit {
      {uf: 'TO', name: 'Tocantins'}
   ];
 
+  loadingPDF: boolean;
+
   constructor(
     private formBuilder: FormBuilder,
     private service: PeoplesService,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private appointmentService: AppointmentService
   ) {}
 
   ngOnInit(): void {
@@ -212,5 +216,18 @@ export class PeoplesComponent implements OnInit {
   clean() {
     this.filter.name = null;
     this.index();
+  }
+
+  getReportPdfClient(people) {
+
+    this.loadingPDF = true;
+    this.appointmentService.getReportPdfClient(people.id).subscribe(response => {
+      const blob = new Blob([response], { type: 'application/octet-stream' });
+      saveAs(blob, `${people.name} [dados].pdf`);
+      this.loadingPDF = false;
+
+    }, err => {
+      this.loadingPDF = false;
+    });
   }
 }
