@@ -8,7 +8,7 @@ import { ChangePasswordService } from "../../services/change-password.service";
 import { NzNotificationService } from "ng-zorro-antd";
 import { MenuService } from 'src/app/services/menu.service';
 import { format, compareAsc, differenceInDays } from 'date-fns';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-main-layout',
   templateUrl: './main-layout.component.html',
@@ -41,7 +41,8 @@ export class MainLayoutComponent implements OnInit {
     private changePasswordService: ChangePasswordService,
     private notification: NzNotificationService,
     private menuService: MenuService,
-    private usersService: UsersService
+    private usersService: UsersService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -56,6 +57,16 @@ export class MainLayoutComponent implements OnInit {
     });
 
     this.getMenu();
+
+    this.firstAccess();
+  }
+
+  firstAccess(){
+    const firstAccess = localStorage.getItem('firstAccess');
+    if(!firstAccess){
+      localStorage.setItem('firstAccess','true')
+      this.router.navigate(['/tutorial/welcome'])
+    }
   }
 
   openHandler(value: string): void {
