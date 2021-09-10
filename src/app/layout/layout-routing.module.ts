@@ -59,10 +59,26 @@ const routes: Routes = [
         canActivate: [AuthGuard]
       } ,
       {
-        path: 'tutorial',
+        path: 'tutorial/welcome',
         loadChildren: () => import('./pages/tutorial/tutorial/tutorial.module').then(m => m.TutorialModule),
         canActivate: [AuthGuard]
+      },
+      {
+        path: 'tutorial/first-step',
+        loadChildren: () => import('./pages/tutorial/first-step/first-step.module').then(m => m.FirstStepModule),
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'tutorial/personalized-config',
+        loadChildren: () => import('./pages/tutorial/personalized-config/personalized-config.module').then(m => m.PersonalizedConfigModule),
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'tutorial/enchiridion',
+        loadChildren: () => import('./pages/tutorial/enchiridion/enchiridion.module').then(m => m.EnchiridionModule),
+        canActivate: [AuthGuard]
       }
+      
 
     ]
   },
