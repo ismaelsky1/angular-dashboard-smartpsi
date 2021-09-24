@@ -33,9 +33,9 @@ export class FinanceComponent implements OnInit {
 
   loadingPDF: boolean;
 
-  income: Number;
-  cost: Number;
-  gain: Number;
+  income: Number = 0;
+  cost: Number = 0;
+  gain: Number = 0;
 
   constructor(
     private formBuilder: FormBuilder,
