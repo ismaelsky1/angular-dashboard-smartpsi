@@ -40,9 +40,9 @@
           </li>
         </ul>
       </li>
-      <li *ngIf="this.userSession?.role == 'ROOT'" nz-submenu nzTitle="Gestão" nzIcon="setting">
+      <li nz-submenu nzTitle="Gestão" nzIcon="setting">
         <ul>
-          <li *ngIf="this.userSession?.role == 'ROOT'" routerLink="/module" nz-menu-item nzMatchRouter>
+          <!-- <li *ngIf="this.userSession?.role == 'ROOT'" routerLink="/module" nz-menu-item nzMatchRouter>
             <i nz-icon nzType="border" nzTheme="outline"></i>
             <a>Modulo</a>
           </li>
@@ -61,6 +61,10 @@
           <li *ngIf="this.userSession?.role == 'ROOT'" routerLink="/type-access" nz-menu-item nzMatchRouter>
             <i nz-icon nzType="safety" nzTheme="outline"></i>
             <a>Tipo de acesso</a>
+          </li> -->
+          <li routerLink="/finance" nz-menu-item nzMatchRouter>
+            <i nz-icon nzType="wallet" nzTheme="outline"></i>
+            <a>Financeiro</a>
           </li>
           <li *ngIf="this.userSession?.role == 'ROOT'" routerLink="/users" nz-menu-item nzMatchRouter>
             <i nz-icon nzType="user" nzTheme="outline"></i>

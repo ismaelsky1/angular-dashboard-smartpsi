@@ -51,6 +51,13 @@ const routes: Routes = [
         loadChildren: () => import('./pages/maintenance/profile/profile.module').then(m => m.ProfileModule),
         canActivate: [AuthGuard]
       }
+      ,
+      {
+        path: 'finance',
+        loadChildren: () => import('./pages/maintenance/finance/finance.module').then(m => m.FinanceModule),
+        canActivate: [AuthGuard]
+      }
+
 
       ,
       {

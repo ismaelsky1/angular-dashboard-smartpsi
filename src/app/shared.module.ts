@@ -26,6 +26,7 @@ import {
   NzTagModule,
   NzDrawerModule,
   NzBadgeModule,
+  NzStatisticModule ,
   NzNotificationModule
 } from 'ng-zorro-antd';
 import {NgxMaskModule} from 'ngx-mask';
@@ -41,6 +42,7 @@ import {CommonModule} from '@angular/common';
     CommonModule,
     NzLayoutModule,
     NzMenuModule,
+    NzStatisticModule,
     NzAvatarModule,
     NzAlertModule,
     NzMessageModule,
@@ -71,7 +73,7 @@ import {CommonModule} from '@angular/common';
     LoadingBarRouterModule,
     LoadingBarHttpClientModule,
     IconsProviderModule,
-    NzNotificationModule
+    NzNotificationModule,
   ],
   declarations: [
 
@@ -79,6 +81,7 @@ import {CommonModule} from '@angular/common';
   exports: [
     CommonModule,
     NzLayoutModule,
+    NzStatisticModule,
     NzMenuModule,
     NzAvatarModule,
     NzAlertModule,

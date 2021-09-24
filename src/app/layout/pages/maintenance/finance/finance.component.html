@@ -1,0 +1,208 @@
+<div class="mt-2" nz-row nzGutter="8">
+  <div nz-col [nzSpan]="8">
+    <nz-card>
+      <nz-statistic
+        [nzValue]="(income | currency: 'BRL':true)!"
+        [nzTitle]="'Receita:'"
+        [nzPrefix]="prefixTplOne"
+        [nzValueStyle]="{ color: '#3F8600' }"
+      ></nz-statistic>
+      <ng-template #prefixTplOne><i nz-icon nzType="arrow-up"></i></ng-template>
+    </nz-card>
+    <br />
+    <br />
+  </div>
+  <div nz-col [nzSpan]="8">
+    <nz-card>
+      <nz-statistic
+        [nzValue]="(cost | currency: 'BRL':true)!"
+        [nzTitle]="'Despesa:'"
+        [nzPrefix]="prefixTplTwo"
+        [nzSuffix]=""
+        [nzValueStyle]="{ color: '#CF1322' }"
+      ></nz-statistic>
+      <ng-template #prefixTplTwo
+        ><i nz-icon nzType="arrow-down"></i
+      ></ng-template>
+    </nz-card>
+  </div>
+  <div nz-col [nzSpan]="8">
+    <nz-card>
+      <nz-statistic
+        [nzValue]="(gain | currency: 'BRL':true)!"
+        [nzTitle]="'Lucro:'"
+        [nzPrefix]="prefixTplTree"
+        [nzSuffix]=""
+        [nzValueStyle]="{ color: '#1890FF' }"
+      ></nz-statistic>
+      <ng-template #prefixTplTree
+        ><i nz-icon nzType="wallet"></i
+      ></ng-template>
+    </nz-card>
+  </div>
+  <div class="mb-2" nz-col nzSpan="4">
+    <nz-range-picker nzMode="month" [(ngModel)]="filter.date"></nz-range-picker>
+  </div>
+  <div class="mb-2" nz-col nzSpan="4">
+    <nz-select
+      id="select_filter_type"
+      nzPlaceHolder="Tipo"
+      [(ngModel)]="filter.type"
+    >
+      <nz-option nzValue="input" select nzLabel="Entrada"></nz-option>
+      <nz-option nzValue="output" nzLabel="Saida"></nz-option>
+    </nz-select>
+  </div>
+  <div class="mb-2" nz-col nzSpan="4">
+    <nz-select
+      style="width: 100% !important"
+      nzShowSearch
+      nzAllowClear
+      nzPlaceHolder="Paciente"
+      [(ngModel)]="filter.peoplesId"
+    >
+      <nz-option
+        *ngFor="let item of peoples"
+        [nzLabel]="item.name"
+        [nzValue]="item.id"
+      >
+      </nz-option>
+    </nz-select>
+  </div>
+  <div nz-col nzSpan="5">
+    <nz-button-group>
+      <button (click)="index()" nz-button nzType="primary">
+        <i nz-icon nzType="search"></i>Buscar
+      </button>
+      <button (click)="clean()" nz-button nzType="dashed">
+        <i nz-icon nzType="delete"></i>Limpar
+      </button>
+    </nz-button-group>
+  </div>
+  <div class="mb-2" nz-col nzSpan="4"></div>
+  <div nz-col nzSpan="3">
+    <button
+      nzBlock="true"
+      (click)="openModal()"
+      class="f-right"
+      nz-button
+      nzType="primary"
+    >
+      Novo
+    </button>
+  </div>
+
+  <div nz-col nzSpan="24">
+    <nz-table
+      nzSimple="false"
+      nzShowPagination="false"
+      [nzLoading]="loadingCollection"
+      #basicTable
+      [nzData]="collection"
+    >
+      <thead>
+        <tr>
+          <th>Valor</th>
+          <th>Tipo</th>
+          <th>Comentario</th>
+          <th>Cliente</th>
+          <th>Data</th>
+          <th nzWidth="35%" nzAlign="center">Ação</th>
+          <!-- <th>Ações</th> -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of basicTable.data">
+          <td>{{ data.value | currency: "BRL":true }}</td>
+          <td *ngIf="data.type == 'input'">
+            <nz-tag [nzColor]="'#87d068'">Entrada</nz-tag>
+          </td>
+          <td *ngIf="data.type == 'output'">
+            <nz-tag [nzColor]="'#f50'">Saida</nz-tag>
+          </td>
+          <td>{{ data.obs }}</td>
+          <td>
+            <label *ngIf="data.peoplesId">
+              {{ data.peoples.name }}
+            </label>
+          </td>
+          <td>{{ data.created_at | date: "dd/MM/yyyy HH:mm" }}</td>
+          <!-- <td>{{ data.document | mask: "000.000.000-00" }}</td> -->
+
+          <td nzAlign="center">
+            <a nz-button nzType="primary" (click)="openModal(data)"
+              ><i nz-icon nzType="edit" nzTheme="outline"></i> Editar</a
+            >
+            <nz-divider nzType="vertical"></nz-divider>
+            <a
+              nz-popconfirm
+              nzPopconfirmTitle="Deseja realmente deletar?"
+              nzPopconfirmPlacement="bottom"
+              (nzOnConfirm)="delete(data.id)"
+              nz-button
+              nzType="default"
+              nzDanger
+              ><i nz-icon nzType="delete" nzTheme="outline"></i> Delete</a
+            >
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>
+
+<nz-modal
+  [nzOkLoading]="modal.loading"
+  [(nzVisible)]="modal.isVisible"
+  nzTitle="Novo Registro"
+  (nzOnCancel)="handleModalCancel()"
+  (nzOnOk)="handleModalOk()"
+>
+  <form nz-form [formGroup]="formModal">
+    <nz-form-item class="mb-1">
+      <nz-form-label nzRequired="value" [nzSpan]="24">Tipo</nz-form-label>
+      <nz-form-control [nzSpan]="24">
+        <nz-select formControlName="type" nzPlaceHolder="Tipo">
+          <nz-option nzLabel="Entrada" nzValue="input"></nz-option>
+          <nz-option nzLabel="Saida" nzValue="output"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="mb-1">
+      <nz-form-label nzRequired="value" [nzSpan]="24">Valor</nz-form-label>
+      <nz-form-control [nzSpan]="24" nzErrorTip="Obrigatório">
+        <input
+          nz-input
+          placeholder="R$ 0,00"
+          currencyMask
+          formControlName="value"
+          [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
+        />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="mb-1">
+      <nz-form-label [nzSpan]="24"> Cliente (Opcional) </nz-form-label>
+      <nz-form-control [nzSpan]="24">
+        <nz-select formControlName="peoplesId" nzAllowClear>
+          <nz-option
+            *ngFor="let item of peoples"
+            placeholder="Uf"
+            [nzValue]="item.id"
+            [nzLabel]="item.name"
+          ></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="24"> Comentario (Opcional) </nz-form-label>
+      <nz-form-control>
+        <textarea
+          [nzAutosize]="{ minRows: 2, maxRows: 2 }"
+          rows="2"
+          formControlName="obs"
+          nz-input
+        ></textarea>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-modal>
